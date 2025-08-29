@@ -2,17 +2,26 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../components/HomeScreen";
 import { Ionicons } from "@expo/vector-icons";
-import { ToDoScreen } from "../components/ToDoScreen";
+import { ToDoScreen } from "../components/todo/ToDoScreen";
 import { CollectionScreen } from "../components/CollectionScreen";
+import { useFonts } from "expo-font";
 import "../global.css";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "VT323": require("../assets/fonts/VT323-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+  return null; //<LoadingScreen />
+}
+
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          headerShown: true,
+          headerShown: false,
           tabBarActiveTintColor: "#fff",
           tabBarStyle: {
             backgroundColor: "#5C5C99",
