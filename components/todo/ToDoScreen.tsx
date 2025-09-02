@@ -17,14 +17,14 @@ export function ToDoScreen() {
     <View className="flex-1 items-center justify-center bg-white">
       {todoList.length === 0 ? (
         <View className="flex-1 items-center justify-center">
-          <Text className="font-pixel text-lg text-gray-500 mb-4">
-            Start your day with a todo ✨
+          <Text className="font-pixel text-lg text-gray-500 mb-4" style={{fontSize: 26}}>
+            Start your day with a todo
           </Text>
           <Pressable
             onPress={() => setModalVisible(true)}
             className="px-6 py-3 bg-blue-500 rounded-full shadow"
           >
-            <Text className="font-pixel text-white text-base font-medium">Start</Text>
+            <Text className="font-pixel text-white text-base font-medium" style={{fontSize: 18}}>Start</Text>
           </Pressable>
         </View>
       ) : (

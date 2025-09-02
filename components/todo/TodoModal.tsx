@@ -1,4 +1,6 @@
 import { View, Text, Modal, Pressable } from "react-native";
+import { ToDo, ToDoData } from "../../model/ToDo";
+import { useForm, Controller } from "react-hook-form";
 
 interface TodoModalProps {
   visible: boolean;
@@ -7,12 +9,26 @@ interface TodoModalProps {
 }
 
 export function ToDoModal({ visible, onCancel, onAdd }: TodoModalProps) {
+  const { handleSubmit, control, reset } = useForm<ToDoData>({
+    defaultValues: {
+      text: "",
+    },
+  });
+
+  /*
+  const submit = async (data: ToDoData) => {
+    await createToDo(data); // hook hiervoor maken
+    reset();
+    onCancel();
+  };
+  */
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
       visible={visible}
-      onRequestClose={onCancel} // voor Android back button
+      onRequestClose={onCancel}
     >
       <View className="flex-1 justify-center items-center bg-black/50">
         <View className="w-4/5 bg-white rounded-2xl p-6 items-center shadow">
