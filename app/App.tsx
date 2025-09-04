@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    "VT323": require("../assets/fonts/VT323-Regular.ttf"),
+    "VT323": require("../public/assets/fonts/VT323-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
