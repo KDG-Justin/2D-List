@@ -3,13 +3,13 @@ import { ToDoData } from "../../model/ToDo";
 import { useForm, Controller } from "react-hook-form";
 import { useToDo } from "../../hooks/useToDo";
 
-interface TodoModalProps {
+interface ToDoModalProps {
   visible: boolean;
   onCancel: () => void;
 }
 
-export function ToDoModal({ visible, onCancel }: TodoModalProps) {
-  const { addTodo } = useToDo();
+export function ToDoModal({ visible, onCancel }: ToDoModalProps) {
+  const { addToDo } = useToDo();
   const { handleSubmit, control, reset, formState: { errors } } = useForm<ToDoData>({
     defaultValues: {
       text: "",
@@ -18,7 +18,7 @@ export function ToDoModal({ visible, onCancel }: TodoModalProps) {
 
   
   const submit = async (data: ToDoData) => {
-    await addTodo(data); 
+    await addToDo(data); 
     reset();
     onCancel(); 
   };

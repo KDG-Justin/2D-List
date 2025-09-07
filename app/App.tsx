@@ -6,9 +6,11 @@ import { ToDoScreen } from "../components/todo/ToDoScreen";
 import { CollectionScreen } from "../components/CollectionScreen";
 import { useFonts } from "expo-font";
 import "../global.css";
+import { useToDo } from "../hooks/useToDo";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
+  const { toDo } = useToDo();
   const [fontsLoaded] = useFonts({
     "VT323": require("../public/assets/fonts/VT323-Regular.ttf"),
   });
@@ -28,12 +30,12 @@ export default function App() {
             fontWeight: 'bold',
           },
           headerStyle: {
-            backgroundColor: "#5C5C99",
+            backgroundColor: "#292966",
 
           } ,
           tabBarActiveTintColor: "#fff",
           tabBarStyle: {
-            backgroundColor: "#5C5C99",
+            backgroundColor: "#292966",
             borderTopWidth: 0,
             elevation: 0,
           },
@@ -64,6 +66,8 @@ export default function App() {
                 color={color}
               />
             ),
+            tabBarBadge: toDo.length > 0 ? toDo.length : undefined,
+            
           }}
         />
         <Tab.Screen
