@@ -35,7 +35,7 @@ export function RemoveToDoModal({visible, onCancel, toDoId} : RemoveToDoModalPro
           <View className="flex-row gap-4 pt-4">
             <Pressable
               onPress={onCancel}
-              className="px-4 py-2 bg-gray-400 rounded"
+              className="px-4 py-2 bg-gray-500 rounded"
             >
               <Text className="font-pixel text-white" style={{fontSize: 18}}>No </Text>
             </Pressable>

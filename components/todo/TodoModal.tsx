@@ -32,8 +32,8 @@ export function ToDoModal({ visible, onCancel }: ToDoModalProps) {
       onRequestClose={onCancel}
     >
       <View className="flex-1 justify-center items-center bg-black/50">
-        <View className="w-4/5 bg-white rounded-2xl p-6 items-start shadow">
-          <Text className="font-pixel self-start mb-2" style={{fontSize: 22}}>
+        <View className="w-4/5 rounded-2xl p-6 items-start shadow" style={{backgroundColor: "#292966"}}>
+          <Text className="font-pixel self-start mb-2" style={{fontSize: 24, color: "#fff"}}>
             What do you need done?
           </Text>
 
@@ -43,8 +43,10 @@ export function ToDoModal({ visible, onCancel }: ToDoModalProps) {
             rules={{ required: "An ampty to-do does not exist." }}
             render={({ field: { onChange, value } }) => (
               <TextInput
-                className="w-full border border-gray-300 rounded px-3 py-2 mb-2"
+              style={{color: "#fff"}}
+                className="w-full border border-white rounded px-3 py-2 mb-2"
                 placeholder="Enter your task..."
+                placeholderTextColor="#fff"
                 onChangeText={onChange}
                 value={value}
               />
@@ -60,16 +62,16 @@ export function ToDoModal({ visible, onCancel }: ToDoModalProps) {
           <View className="flex-row gap-4 pt-4">
             <Pressable
               onPress={onCancel}
-              className="px-4 py-2 bg-gray-400 rounded"
+              className="px-4 py-2 bg-gray-500 rounded"
             >
-              <Text className="font-pixel text-white">Cancel</Text>
+              <Text className="font-pixel text-white" style={{fontSize: 18}}>Cancel</Text>
             </Pressable>
 
             <Pressable
               onPress={handleSubmit(submit)}
-              className="px-4 py-2 bg-blue-500 rounded"
+              className="px-4 py-2 bg-green-600 rounded"
             >
-              <Text className="font-pixel text-white">Add</Text>
+              <Text className="font-pixel text-white" style={{fontSize: 18}}>Add</Text>
             </Pressable>
           </View>
         </View>

@@ -4,10 +4,12 @@ import { Plus, X, Check } from "lucide-react-native";
 import { useToDo } from "../../hooks/useToDo";
 import { RemoveToDoModal } from "./RemoveToDoModal";
 import { ToDoModal } from "./ToDoModal";
+import { UnitModal } from "./UnitModal";
 
 export function ToDoScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [removeToDoModalVisible, setRemoveToDoModalVisible] = useState(false); 
+  const [removeToDoModalVisible, setRemoveToDoModalVisible] = useState(false);
+  const [unitModalVisible, setUnitModalVisible] = useState(false);
   const { toDo } = useToDo();
 
   return (
@@ -51,25 +53,21 @@ export function ToDoScreen() {
                   </Text>
 
                   <View className="flex-row gap-8">
-                    <Pressable>
+                    <Pressable onPress={() => setUnitModalVisible(true)}>
                       <Check
                         color={"white"}
                         style={{ backgroundColor: "green" }}
                       />
                     </Pressable>
-                    <Pressable
-                    onPress={() => setRemoveToDoModalVisible(true)}
-                    >
+                    <Pressable onPress={() => setRemoveToDoModalVisible(true)}>
                       <X color={"white"} style={{ backgroundColor: "red" }} />
                     </Pressable>
                   </View>
                   <RemoveToDoModal
-                  visible={removeToDoModalVisible}
-                  onCancel={() => setRemoveToDoModalVisible(false)}
-                  toDoId={item.uuid}
-                  >
-
-                  </RemoveToDoModal>
+                    visible={removeToDoModalVisible}
+                    onCancel={() => setRemoveToDoModalVisible(false)}
+                    toDoId={item.uuid}
+                  ></RemoveToDoModal>
                 </View>
               )}
             />
@@ -85,6 +83,10 @@ export function ToDoScreen() {
       <ToDoModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
+      />
+      <UnitModal
+        visible={unitModalVisible}
+        onCancel={() => setUnitModalVisible(false)}
       />
     </View>
   );
