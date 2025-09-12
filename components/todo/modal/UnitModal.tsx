@@ -3,15 +3,18 @@ import React, { useState, useEffect } from "react";
 import { X } from "lucide-react-native";
 import { Image } from "expo-image";
 import ConfettiCannon from "react-native-confetti-cannon";
-import { RainbowBounceText } from "../../utils/ComponentFunctions";
+import { RainbowBounceText } from "../../../utils/ComponentFunctions";
+import { useToDo } from "../../../hooks/useToDo";
 
 interface UnitModalProps {
   visible: boolean;
   onCancel: () => void;
+  toDoUuiD: string;
 }
 
-export function UnitModal({ visible, onCancel }: UnitModalProps) {
+export function UnitModal({ visible, onCancel, toDoUuiD }: UnitModalProps) {
   const [showConfetti, setShowConfetti] = useState(false);
+  const { removeToDo } = useToDo();
   // get unit -> supabase connection is set dus alleen random generator
 
   useEffect(() => {
@@ -23,6 +26,11 @@ export function UnitModal({ visible, onCancel }: UnitModalProps) {
   }, [visible]);
 
 
+   async function closeToDo(uuid: string){
+    await removeToDo(uuid);
+    onCancel();
+  }
+
   return (
     <Modal
       animationType="fade"
@@ -31,11 +39,12 @@ export function UnitModal({ visible, onCancel }: UnitModalProps) {
       onRequestClose={onCancel}
     >
       <View className="flex-1 justify-center items-center bg-black/50">
-        <View className="w-4/5 bg-white rounded-2xl p-6 items-center shadow" style={{backgroundColor: "#292966"}}>
-          <Text
-            className="font-pixel self-center mb-2"
-          >
-            <RainbowBounceText text="Congratulations!"/>
+        <View
+          className="w-4/5 bg-white rounded-2xl p-6 items-center shadow"
+          style={{ backgroundColor: "#292966" }}
+        >
+          <Text className="font-pixel self-center mb-2">
+            <RainbowBounceText text="Congratulations!" />
           </Text>
 
           <Image
@@ -48,13 +57,13 @@ export function UnitModal({ visible, onCancel }: UnitModalProps) {
 
           <Text
             className="font-pixel self-center mb-2"
-            style={{ fontSize: 24, color:"#fff" }}
+            style={{ fontSize: 24, color: "#fff" }}
           >
             You have received:
           </Text>
           <View className="flex-row gap-4 pt-4">
             <Pressable
-              onPress={onCancel}
+              onPress={() => closeToDo(toDoUuiD)}
               className="px-4 py-2 bg-gray-600 rounded"
             >
               <Text className="font-pixel text-white">
@@ -63,12 +72,12 @@ export function UnitModal({ visible, onCancel }: UnitModalProps) {
             </Pressable>
           </View>
           {showConfetti && (
-          <ConfettiCannon
-            count={150}              
-            origin={{ x: 0, y: 0 }} 
-            fadeOut={true}          
-          />
-        )}
+            <ConfettiCannon
+              count={150}
+              origin={{ x: 0, y: 0 }}
+              fadeOut={true}
+            />
+          )}
         </View>
       </View>
     </Modal>

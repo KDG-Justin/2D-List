@@ -1,3 +1,4 @@
+import { Priority } from "./enums/Priority";
 import { StatusEnum } from "./enums/StatusEnum";
 
 export interface ToDo {
@@ -5,10 +6,12 @@ export interface ToDo {
     creationDate: Date;
     completionDate?: Date;
     text: string; 
-    status: StatusEnum;    
+    status: StatusEnum;
+    priority: Priority    
     unitIdle?: string;  
 }
 
 export type ToDoData = {
     text: string; 
+    priority: Priority; 
 }

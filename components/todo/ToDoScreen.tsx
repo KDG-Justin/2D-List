@@ -1,15 +1,12 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import React, { useState } from "react";
-import { Plus, X, Check } from "lucide-react-native";
+import { Plus, } from "lucide-react-native";
 import { useToDo } from "../../hooks/useToDo";
-import { RemoveToDoModal } from "./RemoveToDoModal";
-import { ToDoModal } from "./ToDoModal";
-import { UnitModal } from "./UnitModal";
+import { ToDoModal } from "./modal/TodoModal";
+import { ToDoCard } from "./ToDoCard";
 
 export function ToDoScreen() {
   const [modalVisible, setModalVisible] = useState(false);
-  const [removeToDoModalVisible, setRemoveToDoModalVisible] = useState(false);
-  const [unitModalVisible, setUnitModalVisible] = useState(false);
   const { toDo } = useToDo();
 
   return (
@@ -20,7 +17,7 @@ export function ToDoScreen() {
           style={{ backgroundColor: "#ccccff" }}
         >
           <Text
-            className="font-pixel text-lg text-gray-500 mb-4"
+            className="font-pixel text-lg text-gray-600 mb-4"
             style={{ fontSize: 26 }}
           >
             Start your day with a todo
@@ -45,30 +42,9 @@ export function ToDoScreen() {
           >
             <FlatList
               data={toDo}
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item) => item.uuid}
               renderItem={({ item }) => (
-                <View className="grid grid-cols-2 gap-4 p-4 mb-2 mt-2 bg-gray-100 rounded-xl shadow-xl">
-                  <Text className="font-pixel" style={{ fontSize: 20 }}>
-                    {item.text}
-                  </Text>
-
-                  <View className="flex-row gap-8">
-                    <Pressable onPress={() => setUnitModalVisible(true)}>
-                      <Check
-                        color={"white"}
-                        style={{ backgroundColor: "green" }}
-                      />
-                    </Pressable>
-                    <Pressable onPress={() => setRemoveToDoModalVisible(true)}>
-                      <X color={"white"} style={{ backgroundColor: "red" }} />
-                    </Pressable>
-                  </View>
-                  <RemoveToDoModal
-                    visible={removeToDoModalVisible}
-                    onCancel={() => setRemoveToDoModalVisible(false)}
-                    toDoId={item.uuid}
-                  ></RemoveToDoModal>
-                </View>
+                <ToDoCard toDo={item}/>
               )}
             />
           </View>
@@ -83,10 +59,6 @@ export function ToDoScreen() {
       <ToDoModal
         visible={modalVisible}
         onCancel={() => setModalVisible(false)}
-      />
-      <UnitModal
-        visible={unitModalVisible}
-        onCancel={() => setUnitModalVisible(false)}
       />
     </View>
   );

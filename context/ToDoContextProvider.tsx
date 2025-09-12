@@ -4,10 +4,22 @@ import uuid from "react-native-uuid";
 import { ToDoContext } from "./ToDoContext";
 import { ToDo, ToDoData } from "../model/ToDo";
 import { StatusEnum } from "../model/enums/StatusEnum";
+import { Priority } from "../model/enums/Priority";
 
 
 
-const STORAGE_KEY = "todos"
+const STORAGE_KEY = "todos"; 
+
+const priorityOrder: Record<Priority, number> = {
+  Urgent: 1,
+  High: 2,
+  Medium: 3,
+  Low: 4,
+};
+
+const sortTodos = (todos: ToDo[]) => {
+  return [...todos].sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+};
 
 export function ToDoContextProvider({ children }: { children: React.ReactNode }) {
   const [toDo, setToDo] = useState<ToDo[]>([]);
@@ -17,7 +29,10 @@ export function ToDoContextProvider({ children }: { children: React.ReactNode })
     (async () => {
       try {
         const saved = await AsyncStorage.getItem(STORAGE_KEY);
-        if (saved) setToDo(JSON.parse(saved));
+        if (saved) {
+          const parsed: ToDo[] = JSON.parse(saved);
+          setToDo(sortTodos(parsed));
+        }
       } catch (error) {
         console.error("Error loading todos:", error);
       }
@@ -26,8 +41,9 @@ export function ToDoContextProvider({ children }: { children: React.ReactNode })
 
   const persist = async (newTodos: ToDo[]) => {
     try {
-      setToDo(newTodos);
-      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newTodos));
+      const sorted = sortTodos(newTodos); 
+      setToDo(sorted);
+      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(sorted));
     } catch (error) {
       console.error("Error saving todos:", error);
     }
@@ -38,6 +54,7 @@ export function ToDoContextProvider({ children }: { children: React.ReactNode })
       uuid: String(uuid.v4()),
       creationDate: new Date(),
       text: data.text,
+      priority: data.priority,
       status: StatusEnum.pending,
     };
     await persist([...toDo, newTodo]);
