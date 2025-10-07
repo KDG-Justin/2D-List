@@ -56,7 +56,7 @@ export default function App() {
         />
 
         <Tab.Screen
-          name="To do"
+          name="To do List"
           component={ToDoScreen}
           options={{
             tabBarIcon: ({ focused, color, size }) => (

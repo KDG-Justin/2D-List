@@ -20,7 +20,7 @@ export function ToDoScreen() {
             className="font-pixel text-lg text-gray-600 mb-4"
             style={{ fontSize: 26 }}
           >
-            Start your day with a todo
+            No Tasks for this Category
           </Text>
           <Pressable
             onPress={() => setModalVisible(true)}
@@ -30,7 +30,7 @@ export function ToDoScreen() {
               className="font-pixel text-white text-base font-medium"
               style={{ fontSize: 18 }}
             >
-              Start
+              Let's Start
             </Text>
           </Pressable>
         </View>
