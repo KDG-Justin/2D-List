@@ -4,6 +4,7 @@ import { HomeScreen } from "../components/HomeScreen";
 import { Ionicons } from "@expo/vector-icons";
 import { ToDoScreen } from "../components/todo/ToDoScreen";
 import { CollectionScreen } from "../components/CollectionScreen";
+import { Image } from "react-native";
 import { useFonts } from "expo-font";
 import "../global.css";
 import { useToDo } from "../hooks/useToDo";
@@ -12,12 +13,12 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   const { toDo } = useToDo();
   const [fontsLoaded] = useFonts({
-    "VT323": require("../public/assets/fonts/VT323-Regular.ttf"),
+    VT323: require("../public/assets/fonts/VT323-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
-  return null; //<LoadingScreen />
-}
+    return null; //<LoadingScreen />
+  }
 
   return (
     <NavigationContainer>
@@ -27,18 +28,29 @@ export default function App() {
           headerTintColor: "#fff",
           headerTitleAlign: "center",
           headerTitleStyle: {
-            fontWeight: 'bold',
+            fontWeight: "bold",
           },
-          headerStyle: {
-            backgroundColor: "#292966",
-
-          } ,
+          headerBackground: () => (
+            <Image
+              source={require("../public/assets/appUI/appFooter.png")}
+              style={{ width: "100%", height: "100%" }}
+              resizeMode="cover"
+            />
+          ),
           tabBarActiveTintColor: "#fff",
           tabBarStyle: {
-            backgroundColor: "#292966",
+            backgroundColor: 'transparent',
             borderTopWidth: 0,
             elevation: 0,
+            
           },
+          tabBarBackground: () => (
+            <Image
+              source={require("../public/assets/appUI/appFooter.png")}
+              style={{ width: "100%", height: "100%" }}
+              resizeMode="cover"
+            />
+          ),
         }}
       >
         <Tab.Screen
@@ -67,7 +79,6 @@ export default function App() {
               />
             ),
             tabBarBadge: toDo.length > 0 ? toDo.length : undefined,
-            
           }}
         />
         <Tab.Screen

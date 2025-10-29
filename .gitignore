@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+# public folder
+*.gif
+
 # Expo
 .expo/
 dist/

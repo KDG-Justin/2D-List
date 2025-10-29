@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Pressable } from "react-native";
+import { View, Text, FlatList, Pressable, ImageBackground } from "react-native";
 import React, { useState } from "react";
 import { Plus, } from "lucide-react-native";
 import { useToDo } from "../../hooks/useToDo";
@@ -10,14 +10,18 @@ export function ToDoScreen() {
   const { toDo } = useToDo();
 
   return (
-    <View className="flex-1 bg-white">
+    <ImageBackground
+      source={require("../../public/assets/appUI/appBG.png")} 
+      style={{ flex: 1, width: "100%", height: "100%" }}
+      resizeMode="cover"
+    >
+    <View className="flex-1">
       {toDo.length === 0 ? (
         <View
           className="flex-1 items-center justify-center"
-          style={{ backgroundColor: "#ccccff" }}
         >
           <Text
-            className="font-pixel text-lg text-gray-600 mb-4"
+            className="font-pixel text-lg text-white mb-4"
             style={{ fontSize: 26 }}
           >
             No Tasks for this Category
@@ -38,7 +42,6 @@ export function ToDoScreen() {
         <>
           <View
             className="flex-1 p-4 justify-start"
-            style={{ backgroundColor: "#ccccff" }}
           >
             <FlatList
               data={toDo}
@@ -61,5 +64,6 @@ export function ToDoScreen() {
         onCancel={() => setModalVisible(false)}
       />
     </View>
+    </ImageBackground>
   );
 }
