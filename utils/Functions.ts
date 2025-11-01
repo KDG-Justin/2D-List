@@ -19,3 +19,8 @@ export function GetPriorityColor(priority: Priority) : string{
       return "#228b22";
   }
 }
+
+
+export function GenerateRandomNumber(min: number, max : number){
+    return Math.floor(Math.random() * (max - min + 1)) + min; 
+}

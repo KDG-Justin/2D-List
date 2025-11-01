@@ -2,12 +2,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen } from "../components/HomeScreen";
 import { Ionicons } from "@expo/vector-icons";
-import { ToDoScreen } from "../components/todo/ToDoScreen";
 import { CollectionScreen } from "../components/CollectionScreen";
 import { Image } from "react-native";
 import { useFonts } from "expo-font";
 import "../global.css";
 import { useToDo } from "../hooks/useToDo";
+import CategoryStack from "../components/todo/CategoryStack";
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -69,7 +69,7 @@ export default function App() {
 
         <Tab.Screen
           name="To do List"
-          component={ToDoScreen}
+          component={CategoryStack}
           options={{
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons

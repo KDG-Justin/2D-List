@@ -4,10 +4,17 @@ import { Plus, } from "lucide-react-native";
 import { useToDo } from "../../hooks/useToDo";
 import { ToDoModal } from "./modal/TodoModal";
 import { ToDoCard } from "./ToDoCard";
+import { RouteProp } from "@react-navigation/native";
+import { CategoryStackParamList } from "./CategoryStack";
 
-export function ToDoScreen() {
+
+type ToDoScreenRouteProp = RouteProp<CategoryStackParamList, "ToDoScreen">;
+
+
+export function ToDoScreen({ route }: { route: ToDoScreenRouteProp }) {
   const [modalVisible, setModalVisible] = useState(false);
   const { toDo } = useToDo();
+  const { uuid } = route.params;
 
   return (
     <ImageBackground

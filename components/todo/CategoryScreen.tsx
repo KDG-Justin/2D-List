@@ -46,7 +46,7 @@ export function CategoryScreen() {
                     data={categories}
                     keyExtractor={(item) => item.uuid}
                     renderItem={({ item }) => (
-                      <CategoryCard uuid={item.uuid} name={item.name}/>
+                      <CategoryCard uuid={item.uuid} name={item.name} image={item.image} amountOfToDos={item.toDos.length}/>
                     )}
                   />
                 </View>
